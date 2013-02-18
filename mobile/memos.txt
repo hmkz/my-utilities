@@ -1,0 +1,3 @@
+refer to ..
+* http://kazu69.net/blog/memo/1023
+* http://www.html5rocks.com/

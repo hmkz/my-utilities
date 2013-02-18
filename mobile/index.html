@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+
+        <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+        Remove this if you use the .htaccess -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <title>Here is my title.</title>
+        <meta name="description" content="About my Website" />
+        <meta name="author" content="My name is .." />
+        
+        <!-- //デバイスサイズにあわせて表示領域を変更する -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+         
+        <!-- //電話番号のリンクを無効化 -->
+        <meta name="format-detection" content="telephone=no">
+         
+        <!-- //ホーム画面用アイコン -->
+        <link rel="apple-touch-icon" href="icon.png">
+         
+        <!-- //ホーム画面用アイコンの光沢を無効化する -->
+        <link rel="apple-touch-icon-precomposed" href="icon.png">
+         
+        <!-- //iPadホーム画面用アイコン -->
+        <link rel="apple-touch-icon" sizes="72x72" href="touch-icon-ipad.png">
+         
+        <!-- //iPhone4ホーム画面用アイコン -->
+        <link rel="apple-touch-icon" sizes="114x114" href="touch-icon-iphone4.png">
+         
+        <!-- //splash画像の設定 -->
+        <link rel="apple-touch-startup-image" href="startup.png">
+         
+        <!-- //homeボタンから起動時にfull screen modeで起動 -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+         
+        <!-- //full screen mode起動時のステータスバーの色の変更 -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        
+        <!-- @Media Queries -->
+        <!-- 縦向き -->
+        <link rel="stylesheet" media="all and (orientation: portrait)" href="portrait.css">
+        
+        <!-- 横向き -->
+        <link rel="stylesheet" media="all and (orientation: landscape)" href="landscape.css">
+        <style>
+        /* Media Queries */
+        /*縦向き*/
+        @media all and (orientation: portrait) {  
+            body {
+               /* your styles */
+            }  
+        }
+         
+        /*横向き*/
+        @media all and (orientation: landscape) {  
+            body {
+               /* your setting here */
+            }  
+        }
+        /* 画面サイズ〜480pxの端末のときに */
+        @media only screen and (max-width: 481px) {  
+          /* CSS goes here */ 
+        }
+        
+        /* 画面サイズ481px〜1024pxの端末が縦（portrait）のときに */
+        @media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:portrait) {  
+          /* CSS goes here */ 
+        }
+        
+        /* 画面サイズ481px〜1024pxの端末が横（landscape）のときに */
+        @media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:landscape) {  
+          /* CSS goes here */ 
+        }
+        
+        /* 画面サイズ1025〜の端末が横（landscape）のときに */
+        @media only screen and (max-width: 480px) and (max-device-width: 1024px) and (orientation:landscape) {  
+          /* CSS goes here */ 
+        }
+        
+        width: 1025px〜の端末のときに */ 
+        @media only screen and (max-width: 1025px) {  
+          /* CSS goes here */ 
+        }
+        
+        /* iphone4 iphone4s */ 
+        @media (-webkit-min-device-pixel-ratio: 2),  
+                     (min--moz-device-pixel-ratio: 2),  
+                     (min-resolution: 300dpi) {  
+          body{ your styles here }
+        }
+        
+        /* andoroid */ 
+        @media (-webkit-max-device-pixel-ratio: 1.5),  
+                     (max--moz-device-pixel-ratio: 1.5),  
+                     (max-resolution: 299dpi) {  
+          body{ your styles here }  
+        }
+        
+        html,body {
+            /* overflow scrolling */
+            -webkit-overflow-scrolling: touch;
+            
+            
+            /* タップ時のハイライトカラー*/
+            -webkit-tap-highlight-color:#f00;
+            /*テキストの選択をキャンセルする場合*/
+            -webkit-user-select:none;
+            /*リンクの長時間タップでリンク内容をポップアップで表示させない場合*/
+            -webkit-touch-callout: none;
+        }
+        </style>
+        <script>
+        /**
+         *  Androidではviewportにuser-scalable=noの指定がないとposition:fixedが動かない
+            iOS5ではURLに#がついた状態だと挙動が不安定
+            iOS5で他ページに遷移した後に、戻るボタンでページにもどると表示位置がずれる
+            Androidではuser-scalable=noとposition: fixedを使用すると、-webkit-transformが動かなくなる
+         */
+        /**
+         * refer to https://gist.github.com/1221602
+         */
+        function checkSupport() {
+            var isSupported;
+            if ( typeof document.body.scrollIntoViewIfNeeded === 'function') {
+                (function () {
+                    var container     = document.body,
+                        elem          = document.createElement('div'),
+                        orgHeight     = container.style.height,
+                        orgScrollTop  = window.pageYOffset,
+                        testScrollTop = 20;
+         
+                    elem.style.cssText = 'position:fixed;top:0px;height:10px;';
+                    
+                    container.appendChild(elem);
+                    container.style.height = '2048px';
+                    
+                    window.setTimeout(function() {
+                        elem.scrollIntoViewIfNeeded();
+                        isSupported = !(window.pageYOffset === testScrollTop) || !(window.pageYOffset === testScrollTop+1);
+                        alert(isSupported);
+                        container.removeChild(elem);
+                        container.style.height = orgHeight;
+                        
+                        window.scrollTo(0, orgScrollTop);
+                    }, 1000);
+                    
+                    window.scrollTo(0, testScrollTop);
+                }());
+                
+            }
+            alert(isSupported)
+           //return isSupported;
+        }
+        function checkOverflowScroll() {
+            if("overflowScrolling" in document.body.style || "webkitOverflowScrolling" in document.body.style || "MozOverflowScrolling" in document.body.style) {
+                //対応しているときの処理
+                alert("enable overflowScrolling.")
+            } else {
+                //対応してないときの処理
+                alert("disable overflowScrolling.")
+            }
+            ;
+        }
+        
+        // Hide URL bar
+        //1000ミリ秒の遅延を設定しているのはページの読込が完了するまでの十分な時間として設定してます。
+        setTimeout(function(){  window.scrollTo(0,1);},1000);
+         
+        //jQueryなどだとページ読込み完了時に呼んでやるのもありです。
+        $(function(){
+        window.scrollTo(0,1);
+        });
+        
+        // media queries
+        if ( window.matchMedia("only screen and (max-width: 480px")).matches ) {
+             // For Mobile
+        } else if (window.matchMedia("only screen and (min-width: 481px) and (max-width: 1024px)").matches ) {
+             // For Tablet
+        } else {
+             // For PC
+        }
+        
+        // メディアの解像度
+        if( window.devicePixelRatio == 2 )
+        {
+          //iphone4,iphone4s
+        }
+        else if( window.devicePixelRatio == 1.5 )
+        {
+          //Android
+        }
+        else
+        {
+          //others
+        }
+        
+        // フルスクリーンモードか否か
+        if(!window.navigator.standalone)
+        {
+            //your method
+        }
+        
+        
+        // 接続状態の取得（Android）
+        /*
+        Browser Object Model
+         
+        navigator = {
+          connection: {
+            "type": "4",
+            "UNKNOWN": "0",
+            "ETHERNET": "1",
+            "WIFI": "2",
+            "CELL_2G": "3",
+            "CELL_3G": "4"
+          }
+        };
+        */
+ 
+        switch (navigator.connection.type ) {
+        case 0:
+        //unknown
+        case 1:
+        //ETHERNET
+        break;
+         
+        case 2:
+        //WIFI
+        break;
+         
+        case 3:
+        //CELL_2G
+        break;
+         
+        case 4:
+        //CELL_3G
+        break;
+         
+        }
+        
+        // オンラインかどうか
+        if (window.navigator.onLine) 
+        {
+            //online
+        }
+        else
+        {
+            //offline
+        }
+        
+        
+        //タッチイベント関連
+        //スクリーンにタッチ
+        document.addEventListener("touchstart", touchHandler, false);
+         
+        //タッチ後、指を動かす
+        document.addEventListener("touchmove", touchHandler, false);
+         
+        //タッチ後、指を離す
+        document.addEventListener("touchend", touchHandler, false);
+         
+        //タッチ後、指をスライドさせた(タッチをキャンセルした)
+        document.addEventListener("touchcancel", touchHandler, false);
+         
+        //2本以上の指を使ってスクリーンにタッチ
+        document.addEventListener("gesturestart", gestureHandler, false);
+         
+        //指が動く
+        document.addEventListener("gesturechange", gestureHandler, false);
+         
+        //どちらかの指がスクリーンから離れる
+        //ちなみにこの後、残りの指を離すとtouchendが発生
+        document.addEventListener("gestureend", gestureHandler, false);
+        
+        
+        // デバイスの向き
+        //90度ごとに向きが変更された場合に発生
+        window.addEventListener("orientationchange ", orientationEvent, true);
+         
+        //細かい回転量の取得
+        //返される値は
+        //alpha:0～360(degrees)
+        //beta:-180～180(degrees)
+        //gamma:-90～90(degrees)
+        window.addEventListener("deviceorientation", orientationEvent, true);
+         
+        //デバイスの加速度と回転データを取得
+        window.addEventListener('devicemotion', deviceMotionHandler, false);
+        
+        
+        
+        </script>
+    </head>
+
+    <body>
+        <div>
+            <header>
+                <h1>index</h1>
+            </header>
+
+            <div>
+                <!-- //リンクをクリックで電話をかける -->
+                <a href="tel:00000000000">00000000000</a><br />
+                 
+                <!-- //リンククリックでsms -->
+                <a href="sms:00000000000">sms</a><br />
+                 
+                <!-- //smsの送信秋複数 -->
+                <a href="sms:00000000000,1111111111">sms複数</a><br />
+                 
+                <!-- //smsの本文追加 -->
+                <a href="sms:00000000000,1111111111?body=%83e%83X%83g%83%81%83b%83Z%81%5b%83W">smsメッセージ</a><br />
+                
+                <input autocorrect="off" autocomplete="off" autocapitalize="off"><br />
+                <ul>
+                    <li>autocorrect:スペルチェック機能</li>
+                    <li>autocomplete:自動補完</li>
+                    <li>autocapitalize:先頭文字を大文字にする</li>
+                </ul>
+                <input type="number" value="001"><br />
+                <input type="text" pattern="[0-9]*"/><br />
+                <input type="text" pattern="\d*"/><br />
+                <ul>
+                    <li>iOS5以上の場合、inputのnumber属性値の場合、「００１」は「１」の数値形式に変換される。</li>
+                    <li>同様に「1000」は「1,000」の数値形式に変換される</li>
+                    <li>ソフトウェアキーボードを数値入力形式で表示させたいならばtel属性値を付与するかJavaScriptで回避</li>
+                </ul>
+                
+                <button onclick="checkSupport();return false;">Check position:fixed</button>
+                <br />
+                <button onclick="checkOverflowScroll();return false;">Check overflow-scrolling</button>
+                <br />
+                
+                <!-- regular file upload (Android 2.2+) -->
+                <input type="file"></input><br />
+                   
+                <!-- opens directly to the camera (Android 3.0+) --> 
+                <input type="file" accept="image/*;capture=camera"></input><br />
+                   
+                <!-- opens directly to the camera in video mode (Android 3.0+) --> 
+                <input type="file" accept="video/*;capture=camcorder"></input><br />
+                   
+                <!-- opens directly to the audio recorder (Android 3.0+) --> 
+                <input type="file" accept="audio/*;capture=microphone"></input><br />
+            </div>
+
+            <footer>
+                <p>
+                    &copy; Copyright  by hmkz
+                </p>
+            </footer>
+        </div>
+    </body>
+</html>
